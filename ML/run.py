@@ -2,9 +2,9 @@ import os
 import uvicorn
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8000))
+    port = 8000
     # reload=True only in local dev
-    is_dev = os.environ.get("RENDER") is None
+    is_dev = False
 
     uvicorn.run(
         "app.main:app",
