@@ -2,7 +2,7 @@ import os
 import numpy as np
 from app.config import settings
 
-# 🔑 Try TFLite first (works on Render/Linux), fall back to TensorFlow (Windows dev)
+# Try TFLite first (works on Render/Linux), fall back to TensorFlow (Windows dev)
 try:
     import tflite_runtime.interpreter as tflite
     _BACKEND = "tflite"
