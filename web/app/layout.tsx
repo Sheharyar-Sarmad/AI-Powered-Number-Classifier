@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Digit Recognizer | CNN",
   description:
     "Draw a handwritten digit and let our Convolutional Neural Network predict it in real-time.",
-  icons: { icon: "/logo.png", apple: "/logo.png" },
+  icons: { icon: "/logo.png", apple: "/meta_logo.png" },
 };
 
 export default function RootLayout({

@@ -1258,7 +1258,7 @@ Keep responses concise (2-3 sentences) and conversational. Avoid markdown emphas
             Powered by TensorFlow + FastAPI + Groq
           </Badge>
 
-          <h1 className="gradient-text text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
+          <h1 className="gradient-text text-5xl font-bold tracking-tight sm:text-6xl lg:text-6xl">
             Digit Recognizer
           </h1>
 
