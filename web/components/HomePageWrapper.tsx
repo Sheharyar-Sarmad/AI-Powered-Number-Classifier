@@ -187,7 +187,7 @@ const EXPLORE_LINKS = [
     icon: Code2,
     title: "GitHub Repository",
     description: "View the source code on GitHub.",
-    href: "https://github.com/Sheharyar-Sarmad/",
+    href: "https://github.com/Sheharyar-Sarmad/AI-Powered-Number-Classifier",
     external: true,
   },
   {
