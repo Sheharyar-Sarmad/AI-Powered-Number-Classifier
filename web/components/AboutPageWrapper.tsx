@@ -82,7 +82,7 @@ const TRAINING_DETAILS = [
   {
     icon: Activity,
     title: "Epochs",
-    value: "10",
+    value: "5",
     description: "With early stopping on validation loss",
   },
   {
@@ -685,7 +685,7 @@ export default function AboutPageWrapper() {
                   Base URL
                 </p>
                 <code className="mt-1 block break-all font-mono text-xs text-emerald-300 sm:text-sm">
-                  http://127.0.0.1:8000
+                  https://ai-powered-number-classifier-ovuw.onrender.com/
                 </code>
               </div>
               <div className="flex items-start gap-2 text-xs text-neutral-400">
