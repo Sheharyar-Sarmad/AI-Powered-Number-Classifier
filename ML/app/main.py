@@ -17,7 +17,7 @@ app = FastAPI(
 def startup_event():
     ModelLoader.load()
 
-    # 🔑 Warmup — one dummy inference to prime the interpreter
+    # Warmup — one dummy inference to prime the interpreter
     import numpy as np
     dummy = np.zeros((1, 28, 28, 1), dtype=np.float32)
     ModelLoader.predict(dummy)
