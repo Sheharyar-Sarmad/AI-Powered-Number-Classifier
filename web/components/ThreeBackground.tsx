@@ -145,13 +145,14 @@ function WireframeSphere() {
 
 export default function ThreeBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-0">
+    <div className="pointer-events-none fixed inset-0 z-0" style={{ backgroundColor: "#0a0f2a" }}>
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
         gl={{ antialias: true, alpha: true }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.8} />
+        <ambientLight intensity={0.6} color="#8090c0" />
+        <directionalLight position={[2, 3, 4]} intensity={0.4} color="#b0c0ff" />
         <ParticleField count={1200} />
         <WireframeSphere />
       </Canvas>
