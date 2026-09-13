@@ -54,21 +54,17 @@ class PredictorService:
         if total == 0:
             return arr
 
-        # True center of mass (row, col)
         ys, xs = np.indices(arr.shape)
         cy = float((ys * arr).sum() / total)
         cx = float((xs * arr).sum() / total)
 
-        # Target center (14, 14)
         target = arr.shape[0] // 2
-
         shift_y = int(round(target - cy))
         shift_x = int(round(target - cx))
 
-        # Roll the array
         shifted = np.roll(np.roll(arr, shift_y, axis=0), shift_x, axis=1)
 
-        # Clear pixels that wrapped to the opposite edge (the silent killer)
+        # Clear pixels that wrapped to the opposite edge
         if shift_y > 0:
             shifted[:shift_y, :] = 0
         elif shift_y < 0:
@@ -86,17 +82,18 @@ class PredictorService:
         # 1. Grayscale
         image = image.convert("L")
 
-        # 2. Auto-invert if background is light 
+        # 2. Auto-invert if background is light
         arr = np.array(image, dtype=np.uint8)
         if arr.mean() > PredictorService.GRAYSCALE_CUTOFF:
             image = ImageOps.invert(image)
             arr = np.array(image, dtype=np.uint8)
 
-        # 3. Soft threshold: clip near-black to 0 
-        # Value 20 is gentle — removes noise but keeps weak strokes intact.
-        arr = np.where(arr < PredictorService.THRESHOLD, 0, arr).astype(np.uint8)
+        # 3. Soft threshold: clip near-black to 0
+        arr = np.where(
+            arr < PredictorService.THRESHOLD, 0, arr
+        ).astype(np.uint8)
 
-        # 4. Bounding box of the digit 
+        # 4. Bounding box of the digit
         coords = np.argwhere(arr > 0)
         if coords.size == 0:
             return np.zeros((1, 28, 28, 1), dtype="float32")
@@ -105,7 +102,7 @@ class PredictorService:
         y1, x1 = coords.max(axis=0) + 1
         digit = arr[y0:y1, x0:x1]
 
-        # 5. Resize so longest side = 20 px, preserving aspect ratio 
+        # 5. Resize so longest side = 20 px, preserving aspect ratio
         h, w = digit.shape
         if h > w:
             new_h = PredictorService.DIGIT_SIZE
@@ -114,13 +111,13 @@ class PredictorService:
             new_w = PredictorService.DIGIT_SIZE
             new_h = max(1, int(round(h * PredictorService.DIGIT_SIZE / w)))
 
-        # BILINEAR is gentler than LANCZOS on thin strokes (no ringing)
+        # BILINEAR is gentler than LANCZOS on thin strokes
         digit_img = Image.fromarray(digit).resize(
             (new_w, new_h), Image.Resampling.BILINEAR
         )
         digit_arr = np.array(digit_img, dtype=np.float32)
 
-        # 6. Paste centered on 28x28 canvas 
+        # 6. Paste centered on 28x28 canvas
         canvas = np.zeros(
             (PredictorService.TARGET_SIZE, PredictorService.TARGET_SIZE),
             dtype=np.float32,
@@ -129,20 +126,20 @@ class PredictorService:
         left = (PredictorService.TARGET_SIZE - new_w) // 2
         canvas[top:top + new_h, left:left + new_w] = digit_arr
 
-        # 7. Recenter by TRUE center of mass 
+        # 7. Recenter by TRUE center of mass
         canvas = PredictorService._center_by_mass(canvas)
 
-        # 8. Normalize to [0, 1] 
+        # 8. Normalize to [0, 1]
         canvas = canvas / 255.0
 
-        # 9. Shape for Keras: (batch, h, w, channels) 
+        # 9. Shape for TFLite: (batch, h, w, channels)
         return canvas.reshape(1, 28, 28, 1)
 
     @staticmethod
     async def run(file: UploadFile) -> dict:
         PredictorService.validate_upload(file)
 
-        # Read + size checks 
+        # Read + size checks
         contents = await file.read()
         if len(contents) == 0:
             raise HTTPException(
@@ -155,7 +152,7 @@ class PredictorService:
                 detail=f"File exceeds {settings.MAX_FILE_SIZE_MB}MB limit.",
             )
 
-        # Decode image (force full load to catch truncated files) 
+        # Decode image (force full load to catch truncated files)
         try:
             image = Image.open(io.BytesIO(contents))
             image.load()
@@ -170,13 +167,12 @@ class PredictorService:
                 detail=f"Could not process image: {e}",
             )
 
-        # Preprocess 
+        # Preprocess
         img_array = PredictorService._mnist_preprocess(image)
 
-        # Predict 
-        model = ModelLoader.get()
+        # 🔑 Predict via TFLite interpreter
         try:
-            preds = model.predict(img_array, verbose=0)[0]
+            preds = ModelLoader.predict(img_array)
         except Exception as e:
             raise HTTPException(
                 status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
