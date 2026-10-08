@@ -1,442 +1,226 @@
-# 🤖 AI-Powered Number Classifier
+# AI-Powered Number Classifier
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=for-the-badge&logo=python)](https://www.python.org/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.0%2B-orange?style=for-the-badge&logo=tensorflow)](https://www.tensorflow.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange?style=for-the-badge&logo=tensorflow)](https://www.tensorflow.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-green?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Next.js](https://img.shields.io/badge/Next.js-13%2B-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-18%2B-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
-[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)](https://github.com/Sheharyar-Sarmad)
+
+**Draw a digit (0-9) in your browser and a CNN recognizes it in real time, with a live confidence chart for all 10 digits.**
+
+[Live Demo](https://ai-powered-number-classifier-brown.vercel.app/) | [Backend API](https://ai-powered-number-classifier-ovuw.onrender.com) | [Repository](https://github.com/Sheharyar-Sarmad/AI-Powered-Number-Classifier)
+
+> The backend runs on a free Render instance, so the first prediction after a period of inactivity can take 30-60 seconds while the service wakes up.
 
 ---
 
-## 📌 Overview
+## Overview
 
-**AI-Powered Number Classifier** is a real-time handwritten digit recognition web application powered by a deep Convolutional Neural Network (CNN). Draw any digit (0-9) on an interactive canvas, and watch as the model instantly recognizes it with **98.90% accuracy**.
+AI-Powered Number Classifier is a full-stack handwritten digit recognition app. A Next.js frontend provides a drawing canvas, sends the image to a FastAPI backend, and the backend runs a trained TensorFlow/Keras Convolutional Neural Network and returns the predicted digit with probabilities for every class.
 
-This full-stack application combines cutting-edge deep learning with a modern, responsive user interface, delivering an engaging and intuitive experience for exploring AI-powered digit recognition in real-time.
+**Highlights**
 
-### 🎯 Core Value Proposition
-- ✨ **Instant Recognition**: Get predictions in under 100ms
-- 🎨 **Interactive Canvas**: Smooth, responsive drawing interface
-- 📊 **Transparent Results**: View confidence scores for all 10 digits
-- 🔒 **Production-Ready**: Robust validation and error handling
-
----
-
-## 🚀 Live Demo & Links
-
-| 🔗 Resource | 📍 URL |
-|-------------|--------|
-| **Live Demo (Frontend)** | [ai-powered-number-classifier-brown.vercel.app](https://ai-powered-number-classifier-brown.vercel.app/) |
-| **Backend API** | [ai-powered-number-classifier-ovuw.onrender.com](https://ai-powered-number-classifier-ovuw.onrender.com) |
-| **GitHub Repository** | [github.com/Sheharyar-Sarmad](https://github.com/Sheharyar-Sarmad) |
-| **LinkedIn Profile** | [Sheharyar Sarmad](https://www.linkedin.com/in/sheharyar-sarmad-9b7736289/) |
-
-> **Try it now!** Head over to the [live demo](https://ai-powered-number-classifier-brown.vercel.app/) and start drawing digits!
+- **98.90% test accuracy** on a held-out test set
+- **Interactive canvas** with mouse and touch support
+- **Transparent results**: confidence for all 10 digits, not just the top guess
+- **Input validation** on the API (file type, extension and size checks) with clear error responses
+- **Fast inference**: typically under 100 ms on the backend once the model is loaded
 
 ---
 
-## 📊 Model Performance
+## Model
 
-Our trained CNN achieves exceptional performance on the MNIST dataset:
+| Metric | Value |
+|---|---|
+| Test accuracy | 98.90% |
+| Precision (avg) | 98.9% |
+| Recall (avg) | 98.7% |
+| F1 score | 98.8% |
+| Specificity | 99.8% |
+| Training data | 42,000 labeled handwritten digit images |
+| Validation split | 20% |
 
-| 📈 Metric | 📉 Value |
-|-----------|---------|
-| **Test Accuracy** | 98.90% |
-| **Precision (avg)** | 98.9% |
-| **Recall (avg)** | 98.7% |
-| **F1 Score** | 98.8% |
-| **Specificity** | 99.8% |
-| **Inference Time** | <100ms |
-| **Dataset** | MNIST (42,000 training samples) |
-| **Validation Split** | 20% |
+**Architecture**
 
-### 🧠 Model Architecture
-- **Type**: Deep Convolutional Neural Network (CNN)
-- **Components**: 
-  - 2 Convolutional Blocks (Conv2D + ReLU + MaxPooling)
-  - Batch Normalization layers for stable training
-  - Dropout for regularization
-  - Dense layers with softmax classifier
-- **Optimizer**: Adam
-- **Loss Function**: Categorical Crossentropy
+- 2 convolutional blocks (Conv2D + ReLU + MaxPooling)
+- Batch Normalization for stable training
+- Dropout for regularization
+- Dense layers with a softmax output over 10 classes
+- Optimizer: Adam | Loss: Categorical Crossentropy
 
 ---
 
-## 🛠️ Tech Stack
+## How It Works
 
-### 🤖 Machine Learning
-- **TensorFlow** - Deep learning framework
-- **Keras** - High-level neural networks API
-- **NumPy** - Numerical computations
-- **Pillow** - Image processing
-
-### 🔧 Backend
-- **FastAPI** - Modern, fast web framework
-- **Uvicorn** - ASGI server
-- **Pydantic** - Data validation and settings management
-- **Python 3.9+** - Core language
-
-### 💻 Frontend
-- **Next.js 13+** - React framework with SSR
-- **React 18+** - UI library
-- **TypeScript** - Type-safe JavaScript
-- **Tailwind CSS** - Utility-first CSS framework
-- **GSAP** - Animation library for smooth interactions
-
-### 📦 Additional Tools
-- **Docker** - Containerization (optional)
-- **Git** - Version control
-
----
-
-## ✨ Key Features
-
-- 🎨 **Real-Time Canvas Drawing**: Intuitive drawing interface with responsive touch support
-- ⚡ **Lightning-Fast Inference**: Predictions delivered in under 100ms
-- 🎯 **High Accuracy**: 98.90% test accuracy ensures reliable predictions
-- 📊 **Confidence Visualization**: Live probability bar chart for all 10 digits
-- 🔐 **Strict Security Validation**: MIME type, file extension, and file size checks
-- 🌐 **Responsive Design**: Seamless experience on desktop, tablet, and mobile
-- 🎭 **Smooth Animations**: GSAP-powered transitions for polished user experience
-- 📱 **Progressive Web App Ready**: Can be used offline after initial load
-- 🔄 **Clear Predictions**: Instant feedback with confidence scores
-- ♿ **Accessible UI**: Built with accessibility best practices
-
----
-
-## 🔄 How It Works
-
-Follow these simple steps to get predictions:
+1. **Draw**: the user draws a digit on the canvas.
+2. **Send**: clicking *Predict* sends the image to the FastAPI backend.
+3. **Predict**: the image is preprocessed and passed through the CNN.
+4. **Display**: the frontend shows the predicted digit and a live probability chart.
 
 ```
-1. 🎨 DRAW
-   └─ Open the web app and draw a digit (0-9) on the canvas
-   └─ Use your mouse, trackpad, or touchscreen
-
-2. 📤 SEND
-   └─ Click the "Predict" button
-   └─ The image is sent to the FastAPI backend
-
-3. 🤖 PREDICT
-   └─ The CNN model processes the image
-   └─ Returns confidence scores for all digits
-
-4. 📊 DISPLAY
-   └─ Frontend shows the predicted digit
-   └─ Displays a live probability chart
-   └─ View confidence for each digit (0-9)
-```
-
-### Data Flow Diagram
-
-```
-┌──────────────┐      Canvas Data      ┌─────────────┐
-│  React App   │ ─────────────────────>│  FastAPI    │
-│  (Frontend)  │                       │  (Backend)  │
-└──────────────┘                       └─────────────┘
-       ▲                                      │
-       │                                      │
-       │                              ┌───────▼──────┐
-       │                              │ TensorFlow   │
-       │      Prediction + Confidence │ CNN Model    │
-       └──────────────────────────────│              │
-                                      └──────────────┘
+┌──────────────┐      Canvas image      ┌─────────────┐      ┌──────────────┐
+│   Next.js    │ ─────────────────────> │   FastAPI   │ ───> │  Keras CNN   │
+│  (Frontend)  │ <───────────────────── │  (Backend)  │ <─── │   (.h5)      │
+└──────────────┘  Digit + probabilities └─────────────┘      └──────────────┘
 ```
 
 ---
 
-## 🚀 Local Setup & Installation
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Machine learning | TensorFlow, Keras, NumPy, Pillow |
+| Backend | FastAPI, Uvicorn, Pydantic |
+| Frontend | Next.js, React, TypeScript, Tailwind CSS, GSAP |
+| Hosting | Vercel (frontend), Render (backend) |
+
+---
+
+## Getting Started
 
 ### Prerequisites
-- **Python 3.9+** installed on your machine
-- **Node.js 16+** and npm/yarn for the frontend
-- **Git** for cloning the repository
 
-### Backend Setup (FastAPI)
+- Python 3.9+
+- Node.js 18+ and npm
+- Git
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/Sheharyar-Sarmad/ai-powered-number-classifier.git
-   cd ai-powered-number-classifier/backend
-   ```
-
-2. **Create a Virtual Environment**
-   ```bash
-   python -m venv venv
-   # On Windows
-   venv\Scripts\activate
-   # On macOS/Linux
-   source venv/bin/activate
-   ```
-
-3. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Run the Backend Server**
-   ```bash
-   uvicorn main:app --reload --host 0.0.0.0 --port 8000
-   ```
-   The API will be available at `http://localhost:8000`
-   - Swagger Docs: `http://localhost:8000/docs`
-   - ReDoc: `http://localhost:8000/redoc`
-
-### Frontend Setup (Next.js/React)
-
-1. **Navigate to Frontend Directory**
-   ```bash
-   cd ../frontend
-   ```
-
-2. **Install Dependencies**
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. **Configure Environment Variables**
-   Create a `.env.local` file in the frontend directory:
-   ```env
-   NEXT_PUBLIC_API_URL=http://localhost:8000
-   ```
-
-4. **Run the Development Server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-   The application will be available at `http://localhost:3000`
-
-5. **Build for Production**
-   ```bash
-   npm run build
-   npm run start
-   ```
-
-### Full Stack with Docker (Optional)
+### Backend
 
 ```bash
-docker-compose up --build
+git clone https://github.com/Sheharyar-Sarmad/AI-Powered-Number-Classifier.git
+cd AI-Powered-Number-Classifier/backend
+
+python -m venv venv
+source venv/bin/activate        # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
+
+API: `http://localhost:8000` | Swagger docs: `http://localhost:8000/docs` | ReDoc: `http://localhost:8000/redoc`
+
+### Frontend
+
+```bash
+cd ../frontend
+npm install
+```
+
+Create `frontend/.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+Then run:
+
+```bash
+npm run dev
+```
+
+App: `http://localhost:3000`
+
+To build for production: `npm run build && npm run start`
 
 ---
 
-## 📡 API Endpoints
+## API Reference
 
-### Prediction Endpoint
+### `POST /predict`
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| **POST** | `/predict` | Submit an image and receive digit prediction with confidence scores |
+Submit a drawn digit image and receive the prediction with confidence scores.
 
-#### Request Example
 ```bash
 curl -X POST "http://localhost:8000/predict" \
   -H "Content-Type: application/json" \
   -d '{"image": "base64_encoded_image_data"}'
 ```
 
-#### Response Example
+**Response**
+
 ```json
 {
   "predicted_digit": 7,
   "confidence": 0.9956,
   "probabilities": {
-    "0": 0.0001,
-    "1": 0.0002,
-    "2": 0.0005,
-    "3": 0.0008,
-    "4": 0.0012,
-    "5": 0.0011,
-    "6": 0.0003,
-    "7": 0.9956,
-    "8": 0.0001,
-    "9": 0.0001
+    "0": 0.0001, "1": 0.0002, "2": 0.0005, "3": 0.0008, "4": 0.0012,
+    "5": 0.0011, "6": 0.0003, "7": 0.9956, "8": 0.0001, "9": 0.0001
   },
   "inference_time_ms": 45.23
 }
 ```
 
-#### Status Codes
-- `200 OK` - Prediction successful
-- `400 Bad Request` - Invalid image format or size
-- `422 Unprocessable Entity` - Validation error
-- `500 Internal Server Error` - Server error
+| Status | Meaning |
+|---|---|
+| `200` | Prediction successful |
+| `400` | Invalid image format or size |
+| `422` | Validation error |
+| `500` | Server error |
 
-### Health Check Endpoint
+### `GET /health`
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| **GET** | `/health` | Check API status and model availability |
+Returns API status and whether the model is loaded.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-ai-powered-number-classifier/
+AI-Powered-Number-Classifier/
 ├── backend/
-│   ├── main.py              # FastAPI application entry point
-│   ├── models.py            # Pydantic models for validation
-│   ├── utils.py             # Utility functions
-│   ├── model/               # Trained TensorFlow/Keras models
-│   │   └── digit_classifier.h5
-│   ├── requirements.txt      # Python dependencies
-│   └── Dockerfile           # Docker configuration
+│   ├── main.py                 # FastAPI app entry point
+│   ├── models.py               # Pydantic request/response models
+│   ├── utils.py                # Image preprocessing and helpers
+│   ├── model/
+│   │   └── digit_classifier.h5 # Trained Keras model
+│   └── requirements.txt
 │
 ├── frontend/
-│   ├── app/
-│   │   ├── page.tsx         # Home page
-│   │   ├── layout.tsx       # Root layout
-│   │   └── globals.css      # Global styles
-│   ├── components/
-│   │   ├── Canvas.tsx       # Drawing canvas component
-│   │   ├── PredictionChart.tsx # Confidence visualization
-│   │   └── Header.tsx       # Header component
-│   ├── lib/
-│   │   ├── api.ts           # API client
-│   │   └── utils.ts         # Helper utilities
-│   ├── public/              # Static assets
-│   ├── package.json         # Node.js dependencies
-│   ├── tsconfig.json        # TypeScript configuration
-│   ├── next.config.js       # Next.js configuration
-│   └── Dockerfile           # Docker configuration
+│   ├── app/                    # Next.js App Router (page, layout, styles)
+│   ├── components/             # Canvas, PredictionChart, Header
+│   ├── lib/                    # API client and helpers
+│   └── package.json
 │
-├── .gitignore
-├── docker-compose.yml       # Docker Compose configuration
-└── README.md               # This file
+└── README.md
 ```
 
 ---
 
-## 🤝 Contributing
+## Known Limitations
 
-We welcome contributions from the community! Whether it's bug fixes, feature enhancements, or documentation improvements, we'd love to see your contributions.
+- Predicts **one digit at a time**; multi-digit input is not supported.
+- Accuracy is measured on a clean, centered dataset. Real drawings that are off-center, very thin or very small can reduce confidence.
+- Free-tier hosting means cold starts on the first request.
 
-### How to Contribute
+## Roadmap
 
-1. **Fork the Repository**
-   ```bash
-   git clone https://github.com/Sheharyar-Sarmad/ai-powered-number-classifier.git
-   cd ai-powered-number-classifier
-   ```
-
-2. **Create a Feature Branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-3. **Make Your Changes**
-   - Write clean, documented code
-   - Follow the existing code style
-   - Test your changes thoroughly
-
-4. **Commit and Push**
-   ```bash
-   git add .
-   git commit -m "Add your descriptive commit message"
-   git push origin feature/your-feature-name
-   ```
-
-5. **Create a Pull Request**
-   - Provide a clear description of your changes
-   - Link any related issues
-   - Wait for review and feedback
-
-### Development Guidelines
-- Follow PEP 8 for Python code
-- Use TypeScript for frontend code
-- Add unit tests for new features
-- Update documentation as needed
-- Keep commits atomic and descriptive
+- [ ] Multi-digit recognition
+- [ ] Model quantization (TensorFlow Lite) for faster inference
+- [ ] Automated tests for the API and preprocessing
+- [ ] Prediction history
+- [ ] Light/dark theme toggle
 
 ---
 
-## 📜 License
+## Contributing
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+Issues and pull requests are welcome. For larger changes, please open an issue first to discuss the approach: [Issues](https://github.com/Sheharyar-Sarmad/AI-Powered-Number-Classifier/issues).
 
-The MIT License is a permissive license that allows:
-- ✅ Commercial use
-- ✅ Modification
-- ✅ Distribution
-- ✅ Private use
+## License
 
-With the condition that:
-- 📋 License and copyright notice must be included
+Released under the [MIT License](LICENSE).
 
----
-
-## 👤 Author & Contact
+## Author
 
 **Sheharyar Sarmad**
 
-Passionate full-stack developer and AI enthusiast with a focus on creating intuitive, production-ready machine learning applications.
+- GitHub: [Sheharyar-Sarmad](https://github.com/Sheharyar-Sarmad)
+- LinkedIn: [sheharyar-sarmad](https://www.linkedin.com/in/sheharyar-sarmad-9b7736289/)
+- Email: [developersheharyar2010@gmail.com](mailto:developersheharyar2010@gmail.com)
 
-### Connect With Me
-- 💼 **LinkedIn**: [Sheharyar Sarmad](https://www.linkedin.com/in/sheharyar-sarmad-9b7736289/)
-- 🐙 **GitHub**: [@Sheharyar-Sarmad](https://github.com/Sheharyar-Sarmad)
-- 🌐 **Portfolio**: Check out my GitHub for more projects
-- 📧 **Email**: Feel free to reach out through LinkedIn
+## Acknowledgments
 
-### Support & Feedback
-- Found a bug? [Open an issue](https://github.com/Sheharyar-Sarmad/issues)
-- Have a suggestion? [Start a discussion](https://github.com/Sheharyar-Sarmad)
-- Want to collaborate? Reach out on LinkedIn!
-
----
-
-## 🙏 Acknowledgments
-
-- **MNIST Dataset** - Yann LeCun, Corinna Cortes, and Christopher J.C. Burges for the classic digit dataset
-- **TensorFlow & Keras Teams** - For providing amazing deep learning frameworks
-- **FastAPI Community** - For the modern, fast web framework
-- **Next.js & React Communities** - For powerful frontend tools
-- **All Contributors** - Thank you for helping improve this project!
-
----
-
-## 📚 Resources & Learning
-
-- [TensorFlow Documentation](https://www.tensorflow.org/learn)
-- [FastAPI Tutorial](https://fastapi.tiangolo.com/tutorial/)
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev)
-- [MNIST Dataset Info](http://yann.lecun.com/exdb/mnist/)
-- [Convolutional Neural Networks](https://cs231n.github.io/convolutional-networks/)
-
----
-
-## 📈 Future Enhancements
-
-Planned features and improvements:
-
-- [ ] Model quantization for faster inference
-- [ ] Support for multi-digit recognition
-- [ ] User authentication and prediction history
-- [ ] Model comparison dashboard
-- [ ] Real-time model performance monitoring
-- [ ] Mobile app (React Native)
-- [ ] WebGL canvas for enhanced drawing performance
-- [ ] Accessibility improvements
-- [ ] Dark & Light mode toggle
-- [ ] Internationalization (i18n) support
-
----
-
-<div align="center">
-
-### ⭐ If you find this project helpful, please consider giving it a star! ⭐
-
-Made with ❤️ by [Sheharyar Sarmad](https://github.com/Sheharyar-Sarmad)
-
-</div>
-
----
-
-**Last Updated**: September 2026 | **Version**: 1.0.0
+- Yann LeCun, Corinna Cortes and Christopher J.C. Burges for the MNIST digit dataset
+- The TensorFlow/Keras, FastAPI, Next.js and React communities
